@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+        <!-- Plantilla del Ticket -->
+        <template id="report_ticket_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <h2>Ticket de Despacho</h2>
+                        
+                        <p><strong>Ticket No:</strong> <span t-esc="doc.ticket_id"/></p>
+                        <p><strong>Cliente:</strong> <span t-esc="doc.customer.name"/></p>
+                        <p><strong>Modelo:</strong> <span t-esc="doc.car_model"/></p>
+                        <p><strong>Placa:</strong> <span t-esc="doc.number_plate"/></p>
+                        <p><strong>Color:</strong> <span t-esc="doc.color"/></p>
+                        <p><strong>Marca:</strong> <span t-esc="dict(doc._fields['marca'].selection).get(doc.marca)"/></p>
+                        <p><strong>CV:</strong> <span t-esc="doc.cv"/></p>
+                        <p><strong>Galones:</strong> <span t-esc="doc.fuel_litres"/></p>
+                        <p><strong>Tanque Vacio:</strong> <span t-esc="'Si' if doc.empty else 'No'"/></p>
+                        <p><strong>Tanque Lleno:</strong> <span t-esc="'Si' if doc.full else 'No'"/></p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <!-- Reporte -->
+        <report
+            id="report_ticket"
+            model="nitro.gas.stacion"
+            string="Ticket de Despacho"
+            report_type="qweb-pdf"
+            name="nitro_gas.report_ticket_template"
+            file="nitro_gas.report_ticket_template"
+            print_report_name="'Ticket_' + object.ticket_id"
+        />
+    </data>
+</odoo>

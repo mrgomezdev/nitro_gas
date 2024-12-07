@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+            <!-- Vista form -->
+        <record id="view_nitro_gas_stacion_form" model="ir.ui.view">
+            <field name="name">view.nitro.gas.stacion.form</field>
+            <field name="model">nitro.gas.stacion</field>
+            <field name="arch" type="xml">
+                <form string="Statión">
+                     <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ticket_id" default_focus="1" placeholder="00000"/>
+                            </h1>
+                        </div>
+                          <group name="top-info_car">
+                              <group name="left">
+                                <field name="customer" />
+                                <field name="marca" />
+                                <field name="car_model"/>
+                                <field name="cv"/>
+                                <field name="fuel_litres" string="Galones a Comprar"/>
+                              </group>
+                            <group name="right">
+                              <field name="number_plate"/>
+                              <field name="color" />
+                              <field name="empty" />
+                              <field name="full" />
+                            </group>
+                          </group>
+                        <footer>
+                            <button string="Imprimir Ticket" type="object" name="print_ticket" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de secuencia de ticket -->
+        <record id="sequence_nitro_gas_stacion" model="ir.sequence">
+            <field name="name">Secuencia tareas lfpv</field>
+            <field name="code">task.lfpv</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">TICKET</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Vista tree -->
+        <record id="view_nitro_gas_stacion_tree" model="ir.ui.view">
+            <field name="name">view.nitro.gas.stacion.tree</field>
+            <field name="model">nitro.gas.stacion</field>
+            <field name="arch" type="xml">
+                <tree string="Statión">
+                    <field name="ticket_id"/>
+                    <field name="fuel_litres" string="Galones Despachados" sum="Total"/>
+                    <field name="customer" />
+                    <field name="marca" />
+                    <field name="car_model"/>
+                    <field name="cv" sum="Total"/>
+                    <field name="number_plate"/>
+                    <field name="color" />
+                    <field name="empty" />
+                    <field name="full" />
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Vista Graph -->
+        <record id="view_nitro_gas_stacion_graph" model="ir.ui.view">
+            <field name="name">view.nitro.gas.stacion.graph</field>
+            <field name="model">nitro.gas.stacion</field>
+            <field name="arch" type="xml">
+              <graph string="Galones por Modelo" type="bar">
+                <field name="fuel_litres" type="measure" sum="True" string="Galones"/>
+                <field name="car_model" type="category" string="Modelos"/>
+              </graph>
+            </field>
+        </record>
+
+
+        <!-- Acción para abrir vistas de los modelos -->
+        <record model="ir.actions.act_window" id="nitro_gas_stacion">
+            <field name="name">Despacho de Combustibles</field>
+            <field name="res_model">nitro.gas.stacion</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+
+        <!-- Menú item superior -->
+        <menuitem name="Estación de Servicio" web_icon="nitro_gas,static/description/icon.png" id="nitro_gas.menu_root"/>
+
+        <!-- Categorías de menú -->
+        <menuitem name="Modelos" id="nitro_gas.menu_1" parent="nitro_gas.menu_root"/>
+
+        <!-- Acciones del menú -->
+        <menuitem name="Coche" id="nitro_gas.menu_car" parent="nitro_gas.menu_1"
+                  action="nitro_gas_stacion"/>
+
+    </data>
+</odoo>
