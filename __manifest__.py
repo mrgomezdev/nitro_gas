@@ -3,7 +3,7 @@
     'name': "Despacho de Gasolina",
 
     'summary': """
-        Gestion de Estacion de Gasolinera Nitro Gas""",
+        Gestion de Estacion de Gasolinera Nitro Gas para el Curso de Odoo""",
 
     'description': """
         Modulo para la Gestion de Estacion de Gasolinera Nitro Gas El Salvador
